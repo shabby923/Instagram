@@ -17,6 +17,7 @@ class PostViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var commentTextField: UITextView!
     
     
     override func viewDidLoad() {
@@ -24,6 +25,9 @@ class PostViewController: UIViewController {
 
         //受け取った画像をImageViewに設定する
         imageView.image = image
+        
+        commentTextField.layer.borderWidth = 1.0
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,7 +47,7 @@ class PostViewController: UIViewController {
         
         // 辞書を作成してFirebaseに保存する
         let postRef = FIRDatabase.database().reference().child(const.PostPath)
-        let postData = ["caption": textField.text!, "image": imageString, "time": String(time), "name": name!]
+        let postData = ["caption": textField.text!, "image": imageString, "time": String(time), "name": name!, "comment": commentTextField.text!]
         postRef.childByAutoId().setValue(postData)
         
         // HUDで投稿完了を表示する
